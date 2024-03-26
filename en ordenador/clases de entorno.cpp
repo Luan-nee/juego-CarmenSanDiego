@@ -1,4 +1,44 @@
- ////////////////////////////////////////////////////////////////////////
+class edificio{
+public:
+	int width;
+	int height;
+	
+	int x_origen;
+	int y_origen;
+	int x_final;
+	int y_final;
+	
+	int cantEdificios = 0;
+	char nombre[10]; // <- sin uso
+	unsigned char estructura[7][19] =	{
+	  {46,46,201,205,205,205,205,205,205,205,205,205,205,205,205,205,187,46,46},
+	  {46,201,188,46,46,46,46,46,46,46,46,46,46,46,46,46,200,187,46},
+	  {201,188,46,46,66,73,66,76,73,79,84,69,67,65,46,46,46,200,187},
+	  {200,205,203,205,205,205,205,205,205,205,205,205,205,205,205,205,203,205,188},
+	  {46,46,186,46,46,46,46,201,205,205,205,187,46,46,46,46,186,46,46},
+	  {46,46,186,46,46,46,46,186,46,46,46,186,46,46,46,46,186,46,46},
+	  {46,46,200,205,205,205,205,202,205,205,205,202,205,205,205,205,188,46,46},
+	};
+		
+	edificio(int width,int height);
+	void construirObj(int x, int y);
+	void construirEntrada(int x, int y);
+};
+
+class muro{
+	private:
+		int width;
+		int height;
+		char bloque = 219;
+	public:
+		muro (int width, int height);
+		void dibujarMuro();
+};
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 edificio::edificio(int width,int height){
 	this->width = width;
@@ -67,14 +107,29 @@ class CrearJugador{
 public:
 	int x = 1;
 	int y = 1;
+	int old_x;
+	int old_y;
 	char skin = 145;
 	char tecla;
 	void mover_player(char boton);
+	void retrocederPaseAnterior();
 };
 
+void CrearJugador::retrocederPaseAnterior(){
+	
+	gotoxy(this->x, this->y);
+	cout<<" ";
+	
+	this->x = this->old_x;
+	this->y = this->old_y;
+	
+	gotoxy(this->old_x,this->old_y);
+	cout<<this->skin;
+}
+
 void CrearJugador::mover_player(char boton){
-	int old_x = this->x;
-	int old_y = this->y;
+	this->old_x = this->x;
+	this->old_y = this->y;
 	
   switch (boton){
   case 'w':
@@ -95,9 +150,10 @@ void CrearJugador::mover_player(char boton){
     break;
   }
   
-	gotoxy(old_x, old_y);
+	
+	gotoxy(this->old_x, this->old_y);
 	cout<<" ";
 	gotoxy(this->x, this->y);
 	cout<<this->skin;
-  
+
 }
