@@ -32,6 +32,7 @@ public:
 	void construirEntrada(int x, int y);
 	void borrarObj();
 	void borrarEntrada();
+	void modificarNombre();
 };
 
 class Muro{
@@ -53,6 +54,11 @@ Edificio::Edificio(int width,int height, int idLoza){
 	this->height = height;
 	this->idLoza = idLoza;
 };
+
+void Edificio::modificarNombre(){
+	int filas = 2;
+	int columnas = 13;
+}
 
 void Edificio::borrarObj(){
 	for(int i = this->x_origen, columna = 0; i< this->x_final; i++, columna++){ // 7
