@@ -1,41 +1,61 @@
 #include<iostream>
 #include<windows.h>
 #include<conio.h>
-
+#include<string.h>
 using namespace std;
 
 void gotoxy(int , int);
+char unStringAChar(string);
 
 #include "clases de entorno.cpp"
 #include "funciones de entorno.cpp"
 
-Edificio bibliotecas[Edificio::cantEdificios] = {
-	Edificio(19, 7, 1),
-  Edificio(19, 7, 2)
-};
-Edificio tiendas[Edificio::cantEdificios] = {
-	Edificio(19, 7, 3),
-  Edificio(19, 7, 4)
+/*
+	El tamaño más grande de los nombre es de 13 caracteres
+*/
+
+Edificio casaMapa1[Edificio::cantEdificios] = {
+  Edificio(19, 7, 1, "-------------x------------"),
+  Edificio(19, 7, 2, "   libreria               "),
+  Edificio(19, 7, 3, " restaurante    el chino  "),
+  Edificio(19, 7, 4, "    campo       deportivo "),
+  Edificio(19, 7, 5, "   Parque       nacional  "),
+  Edificio(19, 7, 6, " Restaurante    la baina  "),
+  Edificio(19, 7, 7, " museo inter-   nacional  ")
 };
 
 Muro paredes(165,42);
 CrearJugador detective;
 
 //variable de prueva 
-bool posibilidadDibujar1 = true;
-bool posibilidadDibujar2 = true;
+//bool posibilidadDibujar1 = true;
+//bool posibilidadDibujar2 = true;
 /////////////////////////////////////////////
 int main(){
  	paredes.dibujarMuro();
- 	detective.dibujar();		
- 	bibliotecas[0].construirObj(5,5);
-	bibliotecas[1].construirObj(25,5);
-	
+ 	detective.dibujar();
+ 	
+ 	casaMapa1[0].construirObj(25,2);
+	casaMapa1[1].construirObj(46,2);
+	casaMapa1[2].construirObj(66,2);
+	casaMapa1[3].construirObj(87,2);
+	casaMapa1[4].construirObj(25,20);
+	casaMapa1[5].construirObj(45,20);
+	casaMapa1[6].construirObj(87,20);
+		
   do{
     if(kbhit()){
       detective.tecla = getch();
   		detective.modificarPosition(detective.tecla);
-  	
+  		
+  		if(sobreCasa(detective.x, detective.y, casaMapa1)){
+  			detective.retrocederPaseAnterior();
+			}
+  		
+  		if(getIdCasa(detective,casaMapa1) > 0){
+  			detective.localizacion = getIdCasa(detective, casaMapa1);
+			}
+			
 			/*
 			switch(detective.localizacion){
 				case 1:
@@ -97,7 +117,8 @@ int main(){
 			
 			detective.dibujar();	
 			coordenandas(detective.x,detective.y);
-			mostrarIdEntrada(detective, bibliotecas);	
+			mostrarIdEntrada(detective, casaMapa1);	
+			mostrarNumeroEnUnaEsquina(detective.localizacion);
     }
   }while(true);
   return 0;

@@ -2,11 +2,22 @@ bool sobreCasa(int , int , Edificio []);
 void coordenandas(int ,int);
 int getIdCasa(CrearJugador, Edificio []);
 void mostrarIdEntrada(CrearJugador, Edificio []);
+void mostrarNumeroEnUnaEsquina(int);
 
+void mostrarNumeroEnUnaEsquina(int numero){
+	gotoxy(146,4);
+	cout<<"localizacion: "<<numero;
+}
+
+char unStringAChar(string letra){
+	char newTexto[1];
+	strcpy(newTexto, letra.c_str());
+	return newTexto[0];
+}	
 
 void mostrarIdEntrada(CrearJugador player, Edificio estructura[3]){
-	gotoxy(100,10);
-	cout<<getIdCasa(player, estructura);
+	gotoxy(146,5);
+	cout<<"id loza: "<<getIdCasa(player, estructura);
 }
 
 int getIdCasa(CrearJugador player, Edificio estructura[]){
@@ -28,7 +39,9 @@ bool sobreCasa (int x, int y, Edificio estructura[]){
 }
 
 void coordenandas(int x,int y){
-    gotoxy(100, 2);cout<<x<<"/"<<y;
+    gotoxy(146, 2);
+		cout<<"   /  ";
+		cout<<x<<"/"<<y;
 }
 
 void gotoxy(int x, int y){
